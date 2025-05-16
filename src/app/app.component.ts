@@ -1,16 +1,15 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+
+import { HeaderComponent } from "@layout-components/header";
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
+  selector: "app-root",
+  imports: [RouterOutlet, HeaderComponent],
   template: `
-    <h1>Welcome to {{title}}!</h1>
-
+    <app-header></app-header>
     <router-outlet />
   `,
   styles: [],
 })
-export class AppComponent {
-  title = 'team-selection';
-}
+export class AppComponent {}
