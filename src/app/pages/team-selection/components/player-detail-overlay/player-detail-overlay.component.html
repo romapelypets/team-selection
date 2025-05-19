@@ -1,0 +1,30 @@
+@let player = data();
+
+<div class="overlay-container">
+  <div class="overlay-header">
+    <h2 class="overlay-title">Player details</h2>
+    <button class="btn-close"(click)="closeModal()">×</button>
+  </div>
+
+  <div class="overlay-content">
+    <div class="mb-4">
+      <h2 class="text-xl font-semibold text-gray-800">{{ player.name }}</h2>
+      <p class="text-gray-500">{{ player.type }}</p>
+    </div>
+
+    <div class="divide-y divide-gray-100 text-gray-700">
+      <div class="flex justify-between py-2">
+        <span class="font-medium">Batting</span>
+        <span>{{ player.battingSkill }}</span>
+      </div>
+      <div class="flex justify-between py-2">
+        <span class="font-medium">Bowling</span>
+        <span>{{ player.bowlingSkill }}</span>
+      </div>
+      <div class="flex justify-between py-2">
+        <span class="font-medium">Fielding</span>
+        <span>{{ player.fieldingSkill }}</span>
+      </div>
+    </div>
+  </div>
+</div>

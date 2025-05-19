@@ -9,9 +9,9 @@ import { PlayerModel } from "@features/team/models";
 })
 export class SelectedPlayersComponent {
   players = input.required<PlayerModel[]>();
-  removedPlayer = output<PlayerModel>();
+  removedPlayer = output<string>();
 
-  onRemovePlayer(player: PlayerModel): void {
-    this.removedPlayer.emit(player);
+  onRemovePlayer(id: string): void {
+    this.removedPlayer.emit(id);
   }
 }

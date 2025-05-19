@@ -1,10 +1,13 @@
-<app-players-list 
-  [players]="availablePlayers()"
-  [selectedPlayers]="selectedPlayers()"
-  (selectedPlayer)="onSelectPlayer($event)"
-></app-players-list>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <app-players-list 
+    [players]="availablePlayers()"
+    [selectedPlayers]="selectedPlayers()"
+    (selectedPlayer)="onSelectPlayer($event)"
+    (clickedPlayerRow)="onPlayerRowClick($event)"
+  ></app-players-list>
 
-<app-selected-players
-  [players]="selectedPlayers()"
-  (removedPlayer)="onRemovePlayer($event)"
-></app-selected-players>
+  <app-selected-players
+    [players]="selectedPlayers()"
+    (removedPlayer)="onRemovePlayer($event)"
+  ></app-selected-players>
+</div>

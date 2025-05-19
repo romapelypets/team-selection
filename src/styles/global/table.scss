@@ -1,0 +1,42 @@
+.table-wrapper {
+  @apply bg-white border border-gray-200 rounded-lg shadow-md px-4 pb-4 overflow-x-auto relative;
+}
+
+.table {
+  @apply w-full;
+}
+
+.table-head {
+  @apply bg-white border-b border-gray-200;
+}
+
+.table-head-cell {
+  @apply py-4 px-3 text-sm font-medium text-gray-400 text-left;
+}
+
+.table-head-actions {
+  @apply px-0 py-3 text-sm font-medium text-gray-400 text-center sticky -right-4 z-0 bg-white transition-colors;
+} 
+
+.table-row {
+  @apply border-b border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer;
+
+  &:hover {
+    .table-actions,
+    .table-head-actions {
+      @apply bg-gray-100;
+    }
+  }
+}
+
+.table-cell {
+  @apply py-4 px-3 text-base font-semibold text-left text-gray-800;
+}
+
+.table-actions {
+  @apply px-0 py-3 text-center sticky -right-4 z-0 bg-white transition-colors;
+}
+
+.table-empty {
+  @apply py-4 text-center text-gray-400 text-sm;
+}

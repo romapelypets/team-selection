@@ -1,0 +1,15 @@
+.btn-select {
+  @apply text-green-600 border border-green-600 hover:text-green-800 hover:border-green-800 transition-colors bg-white font-medium text-base px-5 py-3 rounded-sm cursor-pointer;
+
+  &:disabled {
+    @apply bg-green-100 text-gray-400 pointer-events-none;
+  }
+}
+
+.btn-remove {
+  @apply text-red-600 border border-red-600 hover:text-red-800 hover:border-red-800 transition-colors bg-white font-medium text-base px-5 py-3 rounded-sm cursor-pointer;
+}
+
+.btn-close {
+  @apply text-gray-400 hover:text-gray-600 text-xl font-medium leading-none p-1 rounded-full transition cursor-pointer;
+}

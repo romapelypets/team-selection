@@ -1,33 +1,36 @@
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Role</th>
-      <th>Batting</th>
-      <th>Bowling</th>
-      <th>Fielding</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (player of players(); track player.name) {
-      <tr [attr.data-testid]="'selected-' + player.name + '-row'">
-        <td>{{ player.name }}</td>
-        <td>{{ player.type }}</td>
-        <td>{{ player.battingSkill }}</td>
-        <td>{{ player.bowlingSkill }}</td>
-        <td>{{ player.fieldingSkill }}</td>
-        <td>
-          <button 
-            [attr.data-testid]="'selected-' + player.name + '-remove'"
-            (click)="onRemovePlayer(player)"
-            >
-            Remove
-          </button>
-        </td>
+<div class="table-wrapper">
+  <h2 class="title mt-4 mb-2">
+    Selected Players
+  </h2>
+  <table class="table">
+    <thead class="table-head">
+      <tr>
+        <th class="table-head-cell">Name</th>
+        <th class="table-head-cell">Role</th>
+        <th class="table-head-actions">Action</th>
       </tr>
-    } @empty {
-      There are no items.
-    }
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      @for (player of players(); track player.name) {
+        <tr class="table-row" [attr.data-testid]="'selected-' + player.name + '-row'">
+          <td class="table-cell">{{ player.name }}</td>
+          <td class="table-cell">{{ player.type }}</td>
+          <td class="table-actions">
+            <button 
+              type="button"
+              class="btn-remove"
+              [attr.data-testid]="'selected-' + player.name + '-remove'"
+              (click)="onRemovePlayer(player.id)"
+            >
+              Remove
+            </button>
+          </td>
+        </tr>
+      } @empty {
+        <div class="table-empty">
+          There are no items.
+        </div>
+      }
+    </tbody>
+  </table>
+</div>

@@ -1,8 +1,10 @@
-import { Injectable, signal, computed } from "@angular/core";
+import { Injectable, signal, computed, inject } from "@angular/core";
 
 import { PlayerModel } from "@features/team/models";
 import { PlayerRoleEnum } from "@features/team/enums";
 import { PLAYERS_LIST } from "@features/team/constants";
+import { isSelectedPlayer } from "@features/team/utils";
+import { NotificationsService } from "@features/notifications/services";
 
 @Injectable({
   providedIn: "root",
@@ -10,66 +12,77 @@ import { PLAYERS_LIST } from "@features/team/constants";
 export class TeamSelectionService {
   availablePlayers = signal<PlayerModel[]>(PLAYERS_LIST);
   selectedPlayers = signal<PlayerModel[]>([]);
+  notificationsService = inject(NotificationsService);
 
   totalCount = computed(() => this.selectedPlayers().length);
 
   selectPlayer(player: PlayerModel): void {
-    if (this.isSelected(player)) return;
+    if (this.isSelected(player.id)) return;
 
-    if (this.totalCount() >= 11) {
-      alert("Only 11 players are allowed in a team");
+    const errorMessage = this.validatePlayerSelection(player);
+    if (errorMessage) {
+      this.notificationsService.showError(errorMessage);
       return;
     }
 
-    switch (player.type) {
-      case PlayerRoleEnum.Batting: {
-        if (this.countByType(PlayerRoleEnum.Batting)() >= 6) {
-          alert("Batsmen can not be more than 6");
-          return;
-        }
-        if (this.countByType(PlayerRoleEnum.Batting)() + this.countByType(PlayerRoleEnum.Bowling)() >= 6) {
-          alert("Batsmen and Bowlers can not be more that 6");
-          return;
-        }
-        break;
-      }
+    this.selectedPlayers.update((list: PlayerModel[]) => [...list, player]);
+  }
 
-      case PlayerRoleEnum.Bowling: {
-        if (this.countByType(PlayerRoleEnum.Bowling)() >= 6) {
-          alert("Bowlers can not be more than 6");
-          return;
+  removePlayer(id: string): void {
+    this.selectedPlayers.update((list: PlayerModel[]) => list.filter((player: PlayerModel) => player.id !== id));
+  }
+
+  isSelected(id: string): boolean {
+    return isSelectedPlayer(id, this.selectedPlayers());
+  }
+
+  private validatePlayerSelection(player: PlayerModel): string | undefined {
+    const total = this.totalCount();
+    const batters = this.countByType(PlayerRoleEnum.Batting)();
+    const bowlers = this.countByType(PlayerRoleEnum.Bowling)();
+    const keepers = this.countByType(PlayerRoleEnum.WicketKeeper)();
+    const allRounders = this.countByType(PlayerRoleEnum.AllRounder)();
+
+    if (total >= 11) {
+      return "Only 11 players are allowed in a team";
+    }
+
+    switch (player.type) {
+      case PlayerRoleEnum.Batting:
+        if (batters >= 6) {
+          return "Batsmen can not be more than 6";
         }
-        if (this.countByType(PlayerRoleEnum.Batting)() + this.countByType(PlayerRoleEnum.Bowling)() >= 6) {
-          alert("Bowlers and Bowlers can not be more that 6");
-          return;
+        if (batters + bowlers >= 6) {
+          return "Batsmen and Bowlers can not be more than 6";
         }
         break;
-      }
+
+      case PlayerRoleEnum.Bowling:
+        if (bowlers >= 6) {
+          return "Bowlers can not be more than 6";
+        }
+        if (batters + bowlers >= 6) {
+          return "Batsmen and Bowlers can not be more than 6";
+        }
+        break;
+
       case PlayerRoleEnum.WicketKeeper:
-        if (this.countByType(PlayerRoleEnum.WicketKeeper)() >= 1) {
-          alert("Wicket Keeper can not be more than 1");
-          return;
+        if (keepers >= 1) {
+          return "Wicket Keeper can not be more than 1";
         }
         break;
+
       case PlayerRoleEnum.AllRounder:
-        if (this.countByType(PlayerRoleEnum.AllRounder)() >= 4) {
-          alert("All Rounders can not be more than 4");
-          return;
+        if (allRounders >= 4) {
+          return "All Rounders can not be more than 4";
         }
         break;
     }
 
-    this.selectedPlayers.update((list) => [...list, player]);
+    return undefined;
   }
 
-  removePlayer(player: PlayerModel): void {
-    this.selectedPlayers.update((list) => list.filter((p) => p !== player));
-  }
-
-  isSelected(player: PlayerModel): boolean {
-    return this.selectedPlayers().includes(player);
-  }
-
-  private countByType = (type: PlayerRoleEnum) =>
-    computed(() => this.selectedPlayers().filter((p) => p.type === type)?.length ?? 0);
+  private countByType = (type: PlayerRoleEnum) => {
+    return computed(() => this.selectedPlayers().filter((player: PlayerModel) => player.type === type)?.length ?? 0);
+  };
 }

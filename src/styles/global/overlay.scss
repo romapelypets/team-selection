@@ -1,0 +1,15 @@
+.overlay-container {
+  @apply border border-gray-200 bg-white rounded-xl shadow-md mx-auto w-[30rem] max-w-[85vw] max-h-[85vh];
+}
+
+.overlay-header {
+  @apply flex justify-between px-4 py-3 border-b border-gray-200;
+}
+
+.overlay-title {
+  @apply text-lg font-semibold;
+}
+
+.overlay-content {
+  @apply px-4 py-4;
+}
