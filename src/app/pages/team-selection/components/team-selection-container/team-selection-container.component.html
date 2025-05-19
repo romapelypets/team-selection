@@ -1,0 +1,10 @@
+<app-players-list 
+  [players]="availablePlayers()"
+  [selectedPlayers]="selectedPlayers()"
+  (selectedPlayer)="onSelectPlayer($event)"
+></app-players-list>
+
+<app-selected-players
+  [players]="selectedPlayers()"
+  (removedPlayer)="onRemovePlayer($event)"
+></app-selected-players>

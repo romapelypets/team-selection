@@ -18,7 +18,9 @@
     "target": "ES2022",
     "module": "ES2022",
     "paths": {
-      "@layout-components/*": ["./src/app/layout-components/*"]
+      "@layout-components/*": ["./src/app/layout-components/*"],
+      "@features/*": ["./src/app/features/*"],
+      "@team-selection/*": ["./src/app/pages/team-selection/*"],
     }
   },
   "angularCompilerOptions": {

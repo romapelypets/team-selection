@@ -1,0 +1,41 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Batting</th>
+      <th>Bowling</th>
+      <th>Fielding</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (player of players(); track player.name) {
+      <tr [attr.data-testid]="'available-' + player.name + '-row'">
+        <td [attr.data-testid]="'available-' + player.name + '-name'">{{ player.name }}</td>
+        <td [attr.data-testid]="'available-' + player.name + '-type'">{{ player.type }}</td>
+        <td>{{ player.battingSkill }}</td>
+        <td>{{ player.bowlingSkill }}</td>
+        <td>{{ player.fieldingSkill }}</td>
+        <td>
+          <button
+            type="button"
+            [attr.data-testid]="'available-' + player.name + '-select'"
+            (click)="onSelectPlayer(player)"
+            [disabled]="isSelected(player)"
+          >
+            Select
+          </button>
+          <!-- <button
+            (click)="onShowDetails(player)"
+            data-testid="available-{{ player.name.replace(' ', '-') }}-details"
+          >
+            Details
+          </button> -->
+        </td>
+      </tr>
+    } @empty {
+      There are no items.
+    }
+  </tbody>
+</table>
