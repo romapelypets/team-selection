@@ -9,15 +9,15 @@
     </thead>
     <tbody>
       @for (player of players(); track player.name) {
-        <tr class="table-row" [attr.data-testid]="'available-' + player.name + '-row'" (click)="onPlayerRowClick($event, player)">
-          <td class="table-cell" [attr.data-testid]="'available-' + player.name + '-name'">{{ player.name }}</td>
-          <td class="table-cell" [attr.data-testid]="'available-' + player.name + '-type'">{{ player.type }}</td>
+        <tr class="table-row" [attr.data-testid]="'available-' + player.name + '-row'">
+          <td class="table-cell" [attr.data-testid]="'available-' + player.name + '-name'" (click)="onPlayerRowClick(player)">{{ player.name }}</td>
+          <td class="table-cell" [attr.data-testid]="'available-' + player.name + '-type'" (click)="onPlayerRowClick(player)">{{ player.type }}</td>
           <td class="table-actions">
             <button
               type="button"
               class="btn-select"
               [attr.data-testid]="'available-' + player.name + '-select'"
-              (click)="onSelectPlayer($event, player)"
+              (click)="onSelectPlayer(player)"
               [disabled]="isSelected(player.id)"
             >
               Select

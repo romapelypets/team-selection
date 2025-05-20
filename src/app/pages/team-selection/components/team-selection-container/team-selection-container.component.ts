@@ -9,7 +9,7 @@ import { PlayerDetailOverlayComponent } from "@team-selection/components/player-
 
 @Component({
   selector: "app-team-selection-container",
-  imports: [PlayersListComponent, SelectedPlayersComponent, PlayerDetailOverlayComponent],
+  imports: [PlayersListComponent, SelectedPlayersComponent],
   templateUrl: "./team-selection-container.component.html",
   styleUrl: "./team-selection-container.component.scss",
 })

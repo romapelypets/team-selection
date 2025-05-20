@@ -14,13 +14,11 @@ export class PlayersListComponent {
   selectedPlayer = output<PlayerModel>();
   clickedPlayerRow = output<PlayerModel>();
 
-  onSelectPlayer(event: Event, player: PlayerModel): void {
-    event.stopPropagation();
+  onSelectPlayer(player: PlayerModel): void {
     this.selectedPlayer.emit(player);
   }
 
-  onPlayerRowClick(event: Event, player: PlayerModel): void {
-    event.stopPropagation();
+  onPlayerRowClick(player: PlayerModel): void {
     this.clickedPlayerRow.emit(player);
   }
 

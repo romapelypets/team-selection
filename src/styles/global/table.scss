@@ -20,11 +20,12 @@
 
 .table-row {
   @apply border-b border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer;
-
-  &:hover {
-    .table-actions,
-    .table-head-actions {
-      @apply bg-gray-100;
+  @media (hover: hover){
+    &:hover {
+      .table-actions,
+      .table-head-actions {
+        @apply bg-gray-100;
+      }
     }
   }
 }

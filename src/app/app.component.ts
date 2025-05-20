@@ -7,7 +7,7 @@ import { WelcomeInstructionsComponent } from "@layout-components/welcome-instruc
 
 @Component({
   selector: "app-root",
-  imports: [RouterOutlet, HeaderComponent, WelcomeInstructionsComponent],
+  imports: [RouterOutlet, HeaderComponent],
   template: `
     <app-header></app-header>
     <div class="py-8 bg-gray-200">
